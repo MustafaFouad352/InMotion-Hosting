@@ -24,31 +24,18 @@ public class P03_CartPage {
     private final By totalPrice = By.xpath("//*[contains(text(),'Total')]");
 
     public P03_CartPage waitForPageLoad() {
-        wait.until(ExpectedConditions.urlContains("cart"));
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.urlContains("checkout"),
+                ExpectedConditions.titleContains("Order")));
         return this;
     }
 
-    public P03_CartPage verifyDomainInCart(String domain) {
-
-            try {
-                boolean found = false;
-
-                if (driver.getPageSource().contains(domain)) {
-                    found = true;
-                }
-
-                List<WebElement> elements = driver.findElements(By.xpath("//*[contains(text(), '" + domain + "')]"));
-                if (!elements.isEmpty()) {
-                    found = true;
-                }
-
-                Assert.assertTrue(found, "Failed " + domain);
-                System.out.println("Done " + domain);
-
-            } catch (Exception e) {
-                Assert.fail("Failed " + e.getMessage());
-            }
-            return this;
+    public P03_CartPage VerifyCart() {
+        WebElement domains = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/div/payment-form/div/div[4]")));
+        WebElement PriceCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div/div[2]/div[2]/span)[2]")));
+        Assert.assertTrue(domains.getText().contains("myautomationtest123"), "Domain not found in cart!");
+        Assert.assertTrue(PriceCart.getText().contains("$38.99"), "Price not matched!");
+        return this;
     }
 
     public P03_CartPage verifyHostingPlanInCart(String planName) {
@@ -58,11 +45,13 @@ public class P03_CartPage {
         return this;
     }
 
-    public P03_CartPage verifyPriceInCart() {
+   /* public P03_CartPage verifyPriceInCart() {
         WebElement price = driver.findElement(By.xpath("//*[contains(text(),'$')]"));
         Assert.assertTrue(price.isDisplayed());
         return this;
     }
+
+    */
 
     public P03_CartPage takeScreenshot(String name) throws IOException {
         Utility.Screenshots.takeScreenshot(driver, name);

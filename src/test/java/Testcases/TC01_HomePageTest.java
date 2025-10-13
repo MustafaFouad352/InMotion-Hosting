@@ -23,10 +23,11 @@ public class TC01_HomePageTest extends Test_Base {
         homePage.ClickOnDomains();
     }*/
 
-    @Test(priority = 2, description = "Navigate to web hosting page")
-    public void testNavigateToWebHosting() {
+    @Test(priority = 2, description = "SearchDomains")
+    public void SearchforaDomain() {
         P01_HomePage homePage = new P01_HomePage(getDriver());
 
-        homePage.goToWebHosting();
+        homePage.SearchDomain("myautomationtest123");
+
     }
 }

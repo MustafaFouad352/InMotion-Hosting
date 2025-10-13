@@ -34,7 +34,7 @@ public class Utility {
         }
     }
 
-    public static class Verifications {
+   /* public static class Verifications {
 
         public static void verifyTextContains(String actual, String expected) {
             Assert.assertTrue(actual.contains(expected),
@@ -57,7 +57,7 @@ public class Utility {
             Assert.assertTrue(element.isDisplayed(), "Element should be displayed");
         }
     }
-
+*/
     public static class Screenshots {
 
         public static void takeScreenshot(WebDriver driver, String fileName) throws IOException {
@@ -85,7 +85,7 @@ public class Utility {
                 File source = ts.getScreenshotAs(OutputType.FILE);
                 FileUtils.copyFile(source, new File("screenshots/" + testName + ".png"));
             } catch (Exception e) {
-                System.out.println("⚠️  فشل في أخذ screenshot: " + e.getMessage());
+                System.out.println("Faild screenshot: " + e.getMessage());
             }
         }
     }

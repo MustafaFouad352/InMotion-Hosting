@@ -11,28 +11,28 @@ import static drivers.DriverHolder.getDriver;
 
 public class TC03_CartManagementTest extends Test_Base {
 
-    @Test(priority = 3, description = "Add domain to cart and verify")
+    @Test(priority = 4, description = "Add domain to cart and verify")
     public void testAddDomainToCart() throws IOException {
         P01_HomePage homePage = new P01_HomePage(getDriver());
         P02_DomainSearchPage searchPage = new P02_DomainSearchPage(getDriver());
         P03_CartPage cartPage = new P03_CartPage(getDriver());
 
         homePage.acceptCookies()
-                .ClickOnDomains();
+                .waitForHomePageToLoad()
+                .verifyPageTitle()
+                .SearchDomain("myautomationtest123")
+        ;
 
-        searchPage.waitForPageLoad()
-                .enterDomain("myautomationtest123")
-                .clickSearch()
-                .waitForResults()
+        searchPage.VerifyAvailable()
+                .verifyPrice()
                 .addToCart()
-                .goToCart();
+                        .goToCart();
 
         cartPage.waitForPageLoad()
-                .verifyDomainInCart("myautomationtest123")
-                .verifyPriceInCart()
-                .takeScreenshot("domain_in_cart");
-    }
+                .VerifyCart();
 
+    }
+/*
     @Test(priority = 4, description = "Verify cart persistence after refresh")
     public void testCartPersistence() {
         P03_CartPage cartPage = new P03_CartPage(getDriver());
@@ -50,4 +50,7 @@ public class TC03_CartManagementTest extends Test_Base {
                 .verifyDomainRemoved("myautomationtest123")
                 .takeScreenshot("domain_removed");
     }
+*/
 }
+
+

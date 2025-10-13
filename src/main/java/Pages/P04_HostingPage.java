@@ -3,11 +3,9 @@ package Pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import util.Utility;
 
 import java.time.Duration;
-import java.util.List;
 
 public class P04_HostingPage {
     WebDriver driver;
@@ -15,20 +13,26 @@ public class P04_HostingPage {
 
     public P04_HostingPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    private final By powerPlanBtn = By.xpath("//*[contains(text(), 'Power')]//ancestor::div[1]//button | //*[contains(text(), 'Power')]/following::button[1]");
+    private final By SelectPowerPlanBtn = By.xpath(("//div[2]/div[1]/div/div[3]/a)[1]"));
     private final By launchPlanBtn = By.xpath("//*[contains(text(), 'Launch')]//ancestor::div[1]//button | //*[contains(text(), 'Launch')]/following::button[1]");
 
     public P04_HostingPage waitForPageLoad() {
-        wait.until(ExpectedConditions.urlContains("hosting"));
+        wait.until(ExpectedConditions.urlContains("shared-hosting"));
         return this;
     }
 
-    public P04_HostingPage selectPowerPlan() {
+    public P02_DomainSearchPage ClickSelectPowerPlan() {
+        WebElement SelectButton= wait.until(ExpectedConditions.elementToBeClickable(SelectPowerPlanBtn));
+        SelectButton.click();
+        wait.until(ExpectedConditions.urlContains("checkout"));
+        wait.until(ExpectedConditions.titleContains("Secure Order Process"));
+
+
+        /*
         try {
-            // ابحث عن أي زر Buy بالقرب من كلمة Power
             List<WebElement> buyButtons = driver.findElements(By.xpath("//button[contains(text(), 'Buy') or contains(text(), 'شراء')]"));
 
             for (WebElement button : buyButtons) {
@@ -49,8 +53,8 @@ public class P04_HostingPage {
         } catch (Exception e) {
             System.out.println("otherpane Power");
             driver.get("https://www.inmotionhosting.com/web-hosting/power");
-        }
-        return this;
+        }*/
+        return new P02_DomainSearchPage(driver);
     }
 
     public P04_HostingPage selectLaunchPlan() {
