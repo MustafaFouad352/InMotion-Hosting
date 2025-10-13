@@ -16,12 +16,7 @@ public class TC01_HomePageTest extends Test_Base {
                 .verifyTopMenuItems();
     }
 
-  /*  @Test(priority = 2, description = "Navigate to domains page")
-    public void testNavigateToDomains() {
-        P01_HomePage homePage = new P01_HomePage(getDriver());
 
-        homePage.ClickOnDomains();
-    }*/
 
     @Test(priority = 2, description = "SearchDomains")
     public void SearchforaDomain() {

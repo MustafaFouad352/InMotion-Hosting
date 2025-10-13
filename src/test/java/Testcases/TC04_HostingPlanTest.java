@@ -19,18 +19,21 @@ public class TC04_HostingPlanTest extends Test_Base {
         P04_HostingPage hostingPage = new P04_HostingPage(getDriver());
         P03_CartPage cartPage = new P03_CartPage(getDriver());
 
-        homePage.goToWebHosting();
+        homePage.acceptCookies()
+        .goToWebHosting();
 
         hostingPage.waitForPageLoad()
                 .ClickSelectPowerPlan()
-                
+                .selectPurchaseNewHosting()
                 .goToCart();
 
-       /* cartPage.waitForPageLoad()
-                .verifyHostingPlanInCart("Power")
-                .takeScreenshot("hosting_plan_in_cart");
+         cartPage.waitForPageLoad()
+                 .refreshPage()
+                 .verifyPriceInCart();
 
-    */
+
+
+
     }
 
 
@@ -40,12 +43,11 @@ public class TC04_HostingPlanTest extends Test_Base {
         P04_HostingPage hostingPage = new P04_HostingPage(getDriver());
         P03_CartPage cartPage = new P03_CartPage(getDriver());
 
-        cartPage.removeDomain();
-
+        cartPage.removeDomain()
+                .takeScreenshot("updated_hosting_plan");
         homePage.goToWebHosting();
 
         hostingPage.waitForPageLoad()
-                .selectPowerPlan()
                 .goToCart();
 
       /*  cartPage.waitForPageLoad()
@@ -62,7 +64,11 @@ public class TC04_HostingPlanTest extends Test_Base {
         P03_CartPage cartPage = new P03_CartPage(getDriver());
         P01_HomePage homePage = new P01_HomePage(getDriver());
 
-        homePage.SearchDomain("myautomationtest123");
+        homePage.acceptCookies()
+        .SearchDomain("myautomationtest123");
+        searchPage.VerifyUnAvailable();
+
+
 
        /* searchPage.enterDomain("myautomationtest123")
                 .clickSearch()

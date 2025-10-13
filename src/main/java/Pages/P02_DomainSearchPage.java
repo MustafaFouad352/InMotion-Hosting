@@ -17,7 +17,7 @@ public class P02_DomainSearchPage {
 
     public P02_DomainSearchPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
 
@@ -26,6 +26,7 @@ public class P02_DomainSearchPage {
     private final By addToCartBtn = By.xpath("(//div[2]/div[2])[3]");
     private  final By NewHostingSelet = By.id("mat-input-0");
     private  final By CLICKNewHostingSelet = By.xpath("(//div/div[2]/central-progress-button/button/span[1])[1]");
+    private final By unavailableMsg = By.xpath("(//div[2]/div[2]/button/span[1])[1]");
 
 
 
@@ -34,13 +35,12 @@ public class P02_DomainSearchPage {
         Assert.assertTrue(msg.isDisplayed());
         return this;
     }
-
-  /*  public P02_DomainSearchPage verifyUnavailable() {
-        WebElement msg = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[contains(text(),'unavailable') or contains(text(),'taken')]")));
+    public P02_DomainSearchPage VerifyUnAvailable() {
+        WebElement msg = wait.until(ExpectedConditions.visibilityOfElementLocated(unavailableMsg));
         Assert.assertTrue(msg.isDisplayed());
         return this;
-    }*/
+    }
+
 
     public P02_DomainSearchPage verifyPrice() {
         WebElement priceElement = driver.findElement(price);
@@ -49,10 +49,6 @@ public class P02_DomainSearchPage {
         return this;
     }
 
-   /* public P02_DomainSearchPage takeScreenshot(String name) throws IOException {
-        Utility.Screenshots.takeScreenshot(driver, name);
-        return this;
-    }*/
 
     public P02_DomainSearchPage addToCart() {
         WebElement button = Utility.Waits.waitForClickable(driver, addToCartBtn);
@@ -60,6 +56,7 @@ public class P02_DomainSearchPage {
         Utility.Waits.waitForVisibility(driver, By.xpath("(//div/div/div[2]/div[2])[39]"));
         return this;
     }
+
 
     public P02_DomainSearchPage goToCart() {
         new P01_HomePage(driver).Cart();
@@ -70,6 +67,9 @@ public class P02_DomainSearchPage {
         radio.sendKeys("myautomationtest123");
         WebElement Clickradio = wait.until(ExpectedConditions.elementToBeClickable(CLICKNewHostingSelet));
         Clickradio.click();
+        WebElement button = Utility.Waits.waitForClickable(driver, addToCartBtn);
+        button.click();
+        Utility.Waits.waitForVisibility(driver, By.xpath("(//div/div/div[2]/div[2])[39]"));
         return this;
      }
 

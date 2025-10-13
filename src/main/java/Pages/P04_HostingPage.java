@@ -3,7 +3,6 @@ package Pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import util.Utility;
 
 import java.time.Duration;
 
@@ -16,8 +15,7 @@ public class P04_HostingPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    private final By SelectPowerPlanBtn = By.xpath(("//div[2]/div[1]/div/div[3]/a)[1]"));
-    private final By launchPlanBtn = By.xpath("//*[contains(text(), 'Launch')]//ancestor::div[1]//button | //*[contains(text(), 'Launch')]/following::button[1]");
+    private final By SelectPowerPlanBtn = By.xpath(("(//div[2]/div[1]/div/div[3]/a)[1]"));
 
     public P04_HostingPage waitForPageLoad() {
         wait.until(ExpectedConditions.urlContains("shared-hosting"));
@@ -55,18 +53,17 @@ public class P04_HostingPage {
             driver.get("https://www.inmotionhosting.com/web-hosting/power");
         }*/
         return new P02_DomainSearchPage(driver);
+
     }
 
-    public P04_HostingPage selectLaunchPlan() {
+  /*  public P04_HostingPage selectLaunchPlan() {
         WebElement button = Utility.Waits.waitForClickable(driver, launchPlanBtn);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", button);
         button.click();
         return this;
-    }
+    }*/
 
-    public P04_HostingPage goToCart() {
-        driver.get("https://www.inmotionhosting.com/cart");
-        wait.until(ExpectedConditions.urlContains("cart"));
-        return this;
+    public P01_HomePage goToCart() {
+       return new P01_HomePage(driver);
     }
 }

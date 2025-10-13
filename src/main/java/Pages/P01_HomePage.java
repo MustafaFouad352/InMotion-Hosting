@@ -73,27 +73,9 @@ public class P01_HomePage {
         return this;
     }
 
-    /*
-    public P01_HomePage HoverOnWebHosting() {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(WebHosting));
-        new Actions(driver).moveToElement(element).perform();
-        return this;
-    }
-    */
+
     public P01_HomePage SearchDomain(String DomainName) {
-      /*  try {
 
-            WebElement domainsLink = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//a[contains(text(),'Domains')]")));
-            domainsLink.click();
-        } catch (Exception e) {
-
-            driver.get("https://www.inmotionhosting.com/domains/");
-        }
-
-        wait.until(webDriver -> ((JavascriptExecutor) webDriver)
-                .executeScript("return document.readyState").equals("complete"));
-*/
         WebElement SearchField = wait.until(ExpectedConditions.elementToBeClickable(domainSearchField));
         WebElement SearchButton = wait.until(ExpectedConditions.elementToBeClickable(domainSearchButton));
         SearchField.click();

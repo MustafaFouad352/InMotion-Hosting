@@ -21,7 +21,6 @@ public class P03_CartPage {
 
     private final By cartItems = By.cssSelector(".cart-item");
     private final By removeBtn = By.xpath("//button[contains(@class,'remove')]");
-    private final By totalPrice = By.xpath("//*[contains(text(),'Total')]");
 
     public P03_CartPage waitForPageLoad() {
         wait.until(ExpectedConditions.or(
@@ -38,20 +37,13 @@ public class P03_CartPage {
         return this;
     }
 
-    public P03_CartPage verifyHostingPlanInCart(String planName) {
-        By planLocator = By.xpath("//*[contains(text(),'" + planName + "')]");
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(planLocator));
-        Assert.assertTrue(element.isDisplayed());
-        return this;
-    }
 
-   /* public P03_CartPage verifyPriceInCart() {
+    public P03_CartPage verifyPriceInCart() {
         WebElement price = driver.findElement(By.xpath("//*[contains(text(),'$')]"));
         Assert.assertTrue(price.isDisplayed());
         return this;
     }
 
-    */
 
     public P03_CartPage takeScreenshot(String name) throws IOException {
         Utility.Screenshots.takeScreenshot(driver, name);
@@ -60,8 +52,7 @@ public class P03_CartPage {
 
     public P03_CartPage refreshPage() {
         driver.navigate().refresh();
-        wait.until(driver -> ((JavascriptExecutor) driver)
-                .executeScript("return document.readyState").equals("complete"));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//tr[4]/td[3]/div/span[1]/mat-icon")));
         return this;
     }
 
@@ -73,16 +64,10 @@ public class P03_CartPage {
         }
         return this;
     }
+}
 
-    public P03_CartPage verifyDomainRemoved(String domain) {
-        List<WebElement> items = driver.findElements(By.xpath("//*[contains(text(),'" + domain + "')]"));
-        Assert.assertTrue(items.isEmpty());
-        return this;
-    }
-
-    public P03_CartPage verifyOnlyHostingRemains() {
+          /*
+          public P03_CartPage verifyOnlyHostingRemains() {
         List<WebElement> items = driver.findElements(cartItems);
         Assert.assertTrue(items.size() == 1);
-        return this;
-    }
-}
+        return this;    }*/
